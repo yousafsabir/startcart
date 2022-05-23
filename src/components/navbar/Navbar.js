@@ -1,136 +1,44 @@
 import React from "react";
 import { useState } from "react";
-import { ImPhone } from "react-icons/im";
-import { GrMail } from "react-icons/gr";
 import { VscTriangleDown } from "react-icons/vsc";
-import Logo from "../../assets/images/logo1.png";
+import { BsCart3 } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import Logo from "../../assets/images/logo.png";
 import ProfilePic from "../../assets/images/man7.png";
 import "./Navbar.css";
-import Socials from "../socials/Socials";
+import { Link } from "react-router-dom";
 const Navbar = (props) => {
-    const [profile, setProfile] = useState(true);
-    const [activeNav, setActiveNav] = useState("home");
+    const count = useSelector((state) => state.product.value.length);
+    const [profile, setProfile] = useState(false);
     return (
-        <header style={{ marginBottom: "0" }}>
+        <nav>
             <div className="nav-container">
                 <div className="nav-inner">
-                    <div className="top" onClick={console.log("clickedHere")}>
-                        <div className="top-left flex">
-                            <div className="flex contact-mail">
-                                <ImPhone />
-                                <p>+351 914 626 616</p>
-                            </div>
-                            <div className="flex contact-mail">
-                                <GrMail />
-                                <p>info@unihost.pt</p>
-                            </div>
-                        </div>
-
-                        <div className="top-right flex ">
-                            <Socials
-                                bgClr="#c48b60"
-                                clr="#fff"
-                                width="24px"
-                                fSize="16px"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="container-fluid hr"></div>
-                <div className="nav-inner">
                     <div className="bottom">
-                        <img src={Logo} alt="" className="logo" />
-
+                        <Link to="/" className="logo-text">
+                            <img src={Logo} alt="" className="logo" />
+                            <h1>
+                                <span>Smart</span> Cart
+                            </h1>
+                        </Link>
                         <div className="bottom-right">
-                            <nav>
-                                <ul className="fs-200 bottom-nav">
-                                    <li className="nav-padding">
-                                        <a
-                                            href="/"
-                                            className={
-                                                activeNav === "home"
-                                                    ? "bold"
-                                                    : ""
-                                            }
-                                            onClick={() => {
-                                                setActiveNav("/");
-                                            }}
-                                        >
-                                            Home
-                                        </a>
-                                    </li>
-                                    <li className="nav-padding">
-                                        <a
-                                            href="/"
-                                            className={
-                                                activeNav === "blog"
-                                                    ? "bold"
-                                                    : ""
-                                            }
-                                            onClick={() => {
-                                                setActiveNav("blog");
-                                            }}
-                                        >
-                                            About
-                                        </a>
-                                    </li>
-                                    <li className="nav-padding">
-                                        <a
-                                            href="contactos"
-                                            className={
-                                                activeNav === "contactos"
-                                                    ? "bold"
-                                                    : ""
-                                            }
-                                            onClick={() => {
-                                                setActiveNav("contactos");
-                                            }}
-                                        >
-                                            Contact Us
-                                        </a>
-                                    </li>
-                                    <li
-                                        className={
-                                            activeNav === "home"
-                                                ? "bottom-line"
-                                                : ""
-                                        }
-                                    ></li>
-                                    <li></li>
-                                    <li
-                                        className={
-                                            activeNav === "blog"
-                                                ? "bottom-line"
-                                                : ""
-                                        }
-                                    ></li>
-                                    <li
-                                        className={
-                                            activeNav === "contactos"
-                                                ? "bottom-line"
-                                                : ""
-                                        }
-                                    ></li>
-                                </ul>
-                            </nav>
-
                             <div
                                 className={`buttons ${
                                     profile ? "buttonsHide" : ""
                                 }`}
                             >
-                                <a
-                                    href="/"
+                                <Link
+                                    to="/signup"
                                     className="btn-outline transition btn-shadow"
                                 >
                                     Sign Up
-                                </a>
-                                <a
-                                    href="/"
+                                </Link>
+                                <Link
+                                    to="/login"
                                     className="btn-contain transition btn-shadow"
                                 >
                                     Login
-                                </a>
+                                </Link>
                             </div>
                             <div
                                 className={`profile ${
@@ -175,19 +83,10 @@ const Navbar = (props) => {
                                             </div>
                                             <ul className="profile-submenu">
                                                 <li className="upper-items bold fs-200 clr-black-main">
-                                                    Uni-Desk
+                                                    Profile
                                                 </li>
                                                 <li className="upper-items bold fs-200 clr-black-main">
-                                                    Minha Estadia
-                                                </li>
-                                                <li className="upper-items bold fs-200 clr-black-main">
-                                                    Favoritos
-                                                </li>
-                                                <li className="upper-items bold fs-200 clr-black-main">
-                                                    Caixa de Entrada (5)
-                                                </li>
-                                                <li className="upper-items bold fs-200 clr-black-main">
-                                                    Notificações (3)
+                                                    My Orders
                                                 </li>
                                                 <li
                                                     style={{
@@ -198,24 +97,27 @@ const Navbar = (props) => {
                                                     }}
                                                 ></li>
                                                 <li className="fs-100 clr-black-extralight">
-                                                    Conta
+                                                    Help
                                                 </li>
                                                 <li className="fs-100 clr-black-extralight">
-                                                    Ajuda
-                                                </li>
-                                                <li className="fs-100 clr-black-extralight">
-                                                    Sair
+                                                    Logout
                                                 </li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+                            <div className="bottom-right-line"></div>
+                            <Link to="/cart" className="cart">
+                                <BsCart3 className="cart-logo" />
+                                <div className="cart-count">{count}</div>
+                                <p>Cart</p>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </nav>
     );
 };
 

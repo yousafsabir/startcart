@@ -3,9 +3,11 @@
     min-height: 100vh;
     background-color: #d1d5db;
     color: #0f172a;
+    /* padding-top: 4rem; */
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .signup-outer {
@@ -20,7 +22,7 @@
 }
 
 .signup-inner {
-    margin-inline: 50px;
+    margin-inline: 30px;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -92,4 +94,8 @@
 }
 .signup-inner span a {
     text-decoration: underline;
+}
+.signup-footer {
+    align-self: flex-end;
+    padding-top: 4rem;
 }

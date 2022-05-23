@@ -70,12 +70,13 @@ select {
 }
 .btn-outline {
     border: 1.5px solid #c48b60;
-    background-color: #fff;
-    color: #c48b60;
+    background-color: transparent;
+    color: #0284c7;
+    border: 1.5px solid #0284c7;
 }
 .btn-contain {
-    border: 1.5px solid #c48b60;
-    background-color: #c48b60;
+    border: 1.5px solid #0284c7;
+    background-color: #0284c7;
     color: #fff;
 }
 .btn-shadow:hover {
