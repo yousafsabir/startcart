@@ -1,21 +1,18 @@
 import React from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    remove,
-    increment,
-    decrement,
-} from "../../store/features/productSlice";
+import { remove, increment, decrement } from "../../store/features/cartSlice";
 import { Table, Button } from "reactstrap";
 
 import "./Cart.css";
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const product = useSelector((state) => state.product.value);
+    const product = useSelector((state) => state.cart.value);
     return (
         <>
             <Navbar />
+            <div className="cart-p-top"></div>
             <div className="cart-cont">
                 <Table className="cart-table">
                     <tbody>
@@ -27,7 +24,7 @@ const Cart = () => {
                                         <img src={value.img} alt="" />
                                     </td>
                                     <td>{value.title}</td>
-                                    <td>{value.price}</td>
+                                    <td>{value.finalPrice}</td>
                                     <td>{value.qty}</td>
                                     <td className="buttons-td">
                                         <Button

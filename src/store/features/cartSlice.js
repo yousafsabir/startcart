@@ -6,7 +6,7 @@ const initialState = {
     value: [],
 };
 
-export const productSlice = createSlice({
+export const cartSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
@@ -22,7 +22,7 @@ export const productSlice = createSlice({
             state.value.map((product) => {
                 if (product.id === action.payload) {
                     product.qty += 1;
-                    product.price += product.initialPrice;
+                    product.finalPrice += product.initialPrice;
                     return product;
                 }
                 return product;
@@ -32,8 +32,10 @@ export const productSlice = createSlice({
             state.value.map((product) => {
                 if (product.id === action.payload && product.qty > 1) {
                     product.qty -= 1;
-                    product.price -= product.initialPrice;
+                    product.finalPrice -= product.initialPrice;
                     return product;
+                } else if (product.id === action.payload && product.qty === 1) {
+                    alert("It is already at its lowest");
                 }
                 return product;
             });
@@ -41,6 +43,6 @@ export const productSlice = createSlice({
     },
 });
 
-export const { add, remove, increment, decrement } = productSlice.actions;
+export const { add, remove, increment, decrement } = cartSlice.actions;
 
-export default productSlice.reducer;
+export default cartSlice.reducer;

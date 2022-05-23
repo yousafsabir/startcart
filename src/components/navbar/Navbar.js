@@ -8,7 +8,7 @@ import ProfilePic from "../../assets/images/man7.png";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 const Navbar = (props) => {
-    const count = useSelector((state) => state.product.value.length);
+    const count = useSelector((state) => state.cart.value.length);
     const [profile, setProfile] = useState(false);
     return (
         <nav>

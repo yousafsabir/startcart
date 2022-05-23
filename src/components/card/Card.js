@@ -1,7 +1,7 @@
 import React from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { add } from "../../store/features/productSlice";
+import { add } from "../../store/features/cartSlice";
 import "./Card.css";
 
 const Card = (props) => {
@@ -24,7 +24,7 @@ const Card = (props) => {
                                 add({
                                     img: props.img,
                                     title: props.title,
-                                    price: props.price,
+                                    finalPrice: props.price,
                                     initialPrice: props.price,
                                     qty: 1,
                                     id: nanoid(),
