@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 import "./Signup.css";
+// const auth = getAuth();
+
 const Signup = () => {
+    const [email, setEmail] = useState("second");
+    const [password, setPassword] = useState("second");
     return (
         <>
             <Navbar />
@@ -22,6 +28,8 @@ const Signup = () => {
                             <input
                                 type="email"
                                 className="signup-input"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 name=""
                                 id="email"
                             />
@@ -44,6 +52,7 @@ const Signup = () => {
                                 className="signup-input"
                                 name=""
                                 id="password"
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div
@@ -66,7 +75,26 @@ const Signup = () => {
                                 id="password"
                             />
                         </div>
-                        <button className="signup-button">SignUp</button>
+                        <button
+                            className="signup-button"
+                            // onClick={async () => {
+                            //     try {
+                            //         let userCredential =
+                            //             await createUserWithEmailAndPassword(
+                            //                 auth,
+                            //                 email,
+                            //                 password
+                            //             );
+                            //         console.log(userCredential);
+                            //         const user = userCredential.user;
+                            //         console.log(user);
+                            //     } catch (error) {
+                            //         console.log(error);
+                            //     }
+                            // }}
+                        >
+                            SignUp
+                        </button>
                         <span>
                             Already have an account? <a href="/">Login here</a>
                         </span>
