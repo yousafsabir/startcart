@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 // import { addDoc, collection } from "firebase/firestore";
 // import { db } from "../../config/firebase.config";
 
@@ -35,7 +36,7 @@ export const cartSlice = createSlice({
                     product.finalPrice -= product.initialPrice;
                     return product;
                 } else if (product.id === action.payload && product.qty === 1) {
-                    alert("It is already at its lowest");
+                    toast.warning("The quantity  is already at its lowest");
                 }
                 return product;
             });

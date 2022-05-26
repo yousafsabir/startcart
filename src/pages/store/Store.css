@@ -1,0 +1,20 @@
+.store-p-top {
+    height: 8rem;
+    width: 100%;
+}
+.store-cont {
+    max-width: 1300px;
+    padding-inline: 15px;
+    margin: 0 auto;
+}
+.store-heading {
+    margin-bottom: 2rem;
+}
+.store-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}

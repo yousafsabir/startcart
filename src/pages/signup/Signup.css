@@ -57,9 +57,13 @@
     background-color: #0f172a;
     color: #f9fafb;
     border: none;
-    display: inline-block;
+    display: inline-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding: 0.5rem;
+    height: 35px;
+    font-size: 17px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -67,6 +71,10 @@
     -o-border-radius: 4px;
     margin-bottom: 2rem;
     cursor: pointer;
+}
+
+.signup-button:disabled {
+    cursor: not-allowed;
 }
 
 .signup-sub-heading {

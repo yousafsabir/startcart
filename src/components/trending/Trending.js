@@ -16,13 +16,14 @@ const Trending = () => {
         <div className="trending-cont">
             <h2>Trending Products</h2>
             <div className="trending-inner">
-                {trending.map((obj) => {
+                {trending.map((item) => {
                     return (
                         <Card
-                            img={obj.img}
-                            title={obj.title}
-                            desc={obj.desc}
-                            price={obj.price}
+                            img={item.img}
+                            title={item.title}
+                            desc={item.desc}
+                            price={item.price}
+                            store={item.store}
                         />
                     );
                 })}

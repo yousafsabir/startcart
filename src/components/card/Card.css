@@ -51,6 +51,11 @@ svg {
     padding-bottom: 10px;
 }
 
+.store-name {
+    margin-left: 5px;
+    font-weight: 600;
+}
+
 /*Button*/
 .card-button {
     border: 1px solid #252525;
@@ -75,4 +80,7 @@ svg {
 .card-button:hover {
     border: 1px solid #7dd3fc;
     background-color: #7dd3fc;
+}
+.store-name:hover {
+    cursor: pointer;
 }

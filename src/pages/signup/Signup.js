@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import Spinner from "react-spinner-material";
+import { toast } from "react-toastify";
+import { signup } from "../../config/firebase.config";
 
 import "./Signup.css";
-// const auth = getAuth();
 
 const Signup = () => {
-    const [email, setEmail] = useState("second");
-    const [password, setPassword] = useState("second");
+    const [loading, setLoading] = useState(false);
+    const handleSignup = async () => {
+        try {
+            setLoading(true);
+            await signup(emailRef.current.value, passwordRef.current.value);
+            toast.success("Successfully signed up");
+        } catch (error) {
+            toast.error("error");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const emailRef = useRef();
+    const passwordRef = useRef();
     return (
         <>
             <Navbar />
@@ -28,8 +42,8 @@ const Signup = () => {
                             <input
                                 type="email"
                                 className="signup-input"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                // value={email}
+                                ref={emailRef}
                                 name=""
                                 id="email"
                             />
@@ -51,8 +65,8 @@ const Signup = () => {
                                 type="password"
                                 className="signup-input"
                                 name=""
+                                ref={passwordRef}
                                 id="password"
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                         <div
@@ -77,23 +91,19 @@ const Signup = () => {
                         </div>
                         <button
                             className="signup-button"
-                            // onClick={async () => {
-                            //     try {
-                            //         let userCredential =
-                            //             await createUserWithEmailAndPassword(
-                            //                 auth,
-                            //                 email,
-                            //                 password
-                            //             );
-                            //         console.log(userCredential);
-                            //         const user = userCredential.user;
-                            //         console.log(user);
-                            //     } catch (error) {
-                            //         console.log(error);
-                            //     }
-                            // }}
+                            disabled={loading}
+                            onClick={() => handleSignup()}
                         >
-                            SignUp
+                            {loading ? (
+                                <Spinner
+                                    radius={17}
+                                    color={"#fff"}
+                                    stroke={2}
+                                    visible={true}
+                                />
+                            ) : (
+                                "SignUp"
+                            )}
                         </button>
                         <span>
                             Already have an account? <a href="/">Login here</a>

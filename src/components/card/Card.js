@@ -7,9 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Card = (props) => {
     const navigate = useNavigate();
-    const abc = () => {
-        navigate("/store", { state: { id: 7, color: "green" } });
-    };
     const dispatch = useDispatch();
     return (
         <>
@@ -23,10 +20,15 @@ const Card = (props) => {
                 </div>
                 <div>
                     <div className="store">
-                        store :{" "}
-                        <Link to="/store" name="user">
-                            Khan{" "}
-                        </Link>
+                        store:
+                        <span
+                            className="store-name"
+                            onClick={() =>
+                                navigate("/store", { state: props.store })
+                            }
+                        >
+                            {props.store}
+                        </span>
                     </div>
                     <div class="card-footer">
                         <span class="text-title">&#8360;{props.price}</span>

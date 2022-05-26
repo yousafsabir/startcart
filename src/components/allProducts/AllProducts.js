@@ -9,13 +9,14 @@ const AllProducts = () => {
         <div className="trending-cont">
             <h2>All Products</h2>
             <div className="trending-inner">
-                {products.map((obj) => {
+                {products.map((item) => {
                     return (
                         <Card
-                            img={obj.img}
-                            title={obj.title}
-                            desc={obj.desc}
-                            price={obj.price}
+                            img={item.img}
+                            title={item.title}
+                            desc={item.desc}
+                            price={item.price}
+                            store={item.store}
                         />
                     );
                 })}
