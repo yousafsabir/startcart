@@ -3,10 +3,13 @@ import Navbar from "../../components/navbar/Navbar";
 import Spinner from "react-spinner-material";
 import { toast } from "react-toastify";
 import { signup } from "../../config/firebase.config";
+import { useNavigate } from "react-router";
 
 import "./Signup.css";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState();
     console.log(user);
@@ -19,6 +22,7 @@ const Signup = () => {
             );
             setUser(use);
             toast.success("Successfully signed up");
+            navigate("/");
         } catch (error) {
             toast.error("error");
             console.log(error);
@@ -113,7 +117,8 @@ const Signup = () => {
                             )}
                         </button>
                         <span>
-                            Already have an account? <a href="/">Login here</a>
+                            Already have an account?{" "}
+                            <Link to="/login">Login here</Link>
                         </span>
                     </div>
                 </div>

@@ -7,9 +7,17 @@ import Logo from "../../assets/images/logo.png";
 import ProfilePic from "../../assets/images/man7.png";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useAuth, logout } from "../../config/firebase.config";
 const Navbar = (props) => {
     const count = useSelector((state) => state.cart.value.length);
-    const [profile, setProfile] = useState(false);
+    const profile = useAuth();
+    const logoutHandle = async () => {
+        try {
+            await logout();
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <nav>
             <div className="nav-container">
@@ -22,6 +30,7 @@ const Navbar = (props) => {
                             </h1>
                         </Link>
                         <div className="bottom-right">
+                            {/* login/signup */}
                             <div
                                 className={`buttons ${
                                     profile ? "buttonsHide" : ""
@@ -40,6 +49,8 @@ const Navbar = (props) => {
                                     Login
                                 </Link>
                             </div>
+
+                            {/* Profile section */}
                             <div
                                 className={`profile ${
                                     profile ? "" : "profileHide"
@@ -75,7 +86,7 @@ const Navbar = (props) => {
                                                         marginBottom: "0",
                                                     }}
                                                 >
-                                                    Jessica
+                                                    {profile?.email}
                                                 </p>
                                                 <VscTriangleDown
                                                     style={{ width: "8px" }}
@@ -99,7 +110,12 @@ const Navbar = (props) => {
                                                 <li className="fs-100 clr-black-extralight">
                                                     Help
                                                 </li>
-                                                <li className="fs-100 clr-black-extralight">
+                                                <li
+                                                    onClick={() =>
+                                                        logoutHandle()
+                                                    }
+                                                    className="fs-100 clr-black-extralight"
+                                                >
                                                     Logout
                                                 </li>
                                             </ul>
@@ -108,6 +124,8 @@ const Navbar = (props) => {
                                 </div>
                             </div>
                             <div className="bottom-right-line"></div>
+
+                            {/* Cart */}
                             <Link to="/cart" className="cart">
                                 <BsCart3 className="cart-logo" />
                                 <div className="cart-count">{count}</div>
