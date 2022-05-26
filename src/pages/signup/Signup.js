@@ -8,13 +8,20 @@ import "./Signup.css";
 
 const Signup = () => {
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState();
+    console.log(user);
     const handleSignup = async () => {
         try {
             setLoading(true);
-            await signup(emailRef.current.value, passwordRef.current.value);
+            let use = await signup(
+                emailRef.current.value,
+                passwordRef.current.value
+            );
+            setUser(use);
             toast.success("Successfully signed up");
         } catch (error) {
             toast.error("error");
+            console.log(error);
         } finally {
             setLoading(false);
         }

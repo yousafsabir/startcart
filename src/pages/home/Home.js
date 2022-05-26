@@ -7,17 +7,22 @@ import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import Spinner from "react-spinner-material";
 // import from  firebase
-import { db } from "../../config/firebase.config";
+import { db, useAuth } from "../../config/firebase.config";
 import {
     collection,
     doc,
     addDoc,
     setDoc,
     deleteDoc,
+    query,
+    getDocs,
     onSnapshot,
+    where,
 } from "firebase/firestore";
 
 const Home = () => {
+    const currentUser = useAuth();
+
     const [data, setData] = useState([]);
     useEffect(
         () =>
@@ -62,18 +67,37 @@ const Home = () => {
         }
     };
 
+    const queryDelete = async () => {
+        let signal = prompt("Enter the value");
+        let collectionRef = collection(db, "counter");
+        let q = query(collectionRef, where("value", "==", signal));
+        // we have made query, now we are gonna get the docs
+        const snapshot = await getDocs(q);
+        // this is raw data, lets get wanted data
+        let results = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }));
+        // now deleting the data
+        results.forEach(async (result) => {
+            let docRef = doc(db, "counter", result.id);
+            await deleteDoc(docRef);
+        });
+    };
+
     return (
         <div>
             <Navbar />
             {data.map((item) => {
                 return (
                     <div style={{ marginTop: "5rem" }}>
-                        {item?.data.value}{" "}
                         <button onClick={() => editData(item.id)}>edit</button>
                     </div>
                 );
             })}
+            <div>currently logged in as {currentUser?.email}</div>
             <button onClick={() => addData()}>new data</button>
+            <button onClick={() => queryDelete()}>Query Delete</button>
             <Header />
             <Trending />
             <AllProducts />
