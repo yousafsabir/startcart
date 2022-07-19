@@ -1,9 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -11,6 +9,17 @@ import {
     onAuthStateChanged,
     signOut,
 } from "firebase/auth";
+import {
+    collection,
+    doc,
+    addDoc,
+    setDoc,
+    deleteDoc,
+    query,
+    getDocs,
+    onSnapshot,
+    where,
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,8 +40,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // exportin the fireStore
 export const db = getFirestore(app);
-
-const analytics = getAnalytics(app);
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
@@ -63,4 +70,51 @@ export const useAuth = () => {
     }, []);
 
     return currentUser;
+};
+
+// CRUD Operations
+const addData = async () => {
+    try {
+        let value = prompt("add the value");
+        let collectionRef = collection(db, "counter");
+        await addDoc(collectionRef, { value });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const editData = async (id) => {
+    try {
+        let value = prompt("add new value");
+        let docRef = doc(db, "counter", id);
+        await setDoc(docRef, { value });
+    } catch (error) {
+        console.log(error);
+    }
+};
+const deleteData = async (id) => {
+    try {
+        let docRef = doc(db, "counter", id);
+        await deleteDoc(docRef);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const queryDelete = async () => {
+    let signal = prompt("Enter the value");
+    let collectionRef = collection(db, "counter");
+    let q = query(collectionRef, where("value", "==", signal));
+    // we have made query, now we are gonna get the docs
+    const snapshot = await getDocs(q);
+    // this is raw data, lets get wanted data
+    let results = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+    }));
+    // now deleting the data
+    results.forEach(async (result) => {
+        let docRef = doc(db, "counter", result.id);
+        await deleteDoc(docRef);
+    });
 };
