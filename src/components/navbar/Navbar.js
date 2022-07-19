@@ -26,7 +26,7 @@ const Navbar = (props) => {
                         <Link to="/" className="logo-text">
                             <img src={Logo} alt="" className="logo" />
                             <h1>
-                                <span>Smart</span> Cart
+                                <span>Start</span> Cart
                             </h1>
                         </Link>
                         <div className="bottom-right">
