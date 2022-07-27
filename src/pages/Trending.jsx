@@ -52,6 +52,7 @@ const Trending = () => {
                     <div className="mb-3">
                         <h2 className="text-3xl font-semibold">Trending</h2>
                     </div>
+
                     <div className="grid grid-cols-card gap-4">
                         {data?.map((doc, i) => {
                             return (
@@ -67,6 +68,7 @@ const Trending = () => {
                             );
                         })}
                     </div>
+
                     <div className="my-3 flex items-center justify-center gap-3">
                         {pdLimit > 10 && (
                             <button
