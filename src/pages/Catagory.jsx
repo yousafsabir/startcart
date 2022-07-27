@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
+import {
+    onSnapshot,
+    collection,
+    query,
+    where,
+    limit,
+} from "firebase/firestore";
 import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
 const Catagory = () => {
     const location = useLocation();
     const [catagory, setCatagory] = useState(location.state);
+    const [noMore, setNoMore] = useState(false);
+    const [pdLimit, setPdLimit] = useState(10);
     const [data, setData] = useState([]);
     useEffect(
         () =>
             onSnapshot(
                 query(
                     collection(db, "products"),
-                    where("catagory", "==", catagory)
+                    where("catagory", "==", catagory),
+                    limit(pdLimit)
                 ),
                 (snapshot) => {
                     setData(
@@ -24,8 +34,18 @@ const Catagory = () => {
                     );
                 }
             ),
-        [catagory]
+        [catagory, pdLimit]
     );
+    useEffect(() => {
+        if (pdLimit > data.length) setNoMore(true);
+        if (pdLimit === data.length) setNoMore(false);
+    }, [data]);
+    const more = () => {
+        if (!noMore) setPdLimit((prev) => prev + 10);
+    };
+    const less = () => {
+        if (noMore) setPdLimit((prev) => prev - 10);
+    };
 
     return (
         <>
@@ -59,8 +79,32 @@ const Catagory = () => {
                             );
                         })}
                     </div>
+                    <div className="my-3 flex items-center justify-center gap-3">
+                        {pdLimit > 10 && (
+                            <button
+                                onClick={less}
+                                className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
+                            >
+                                see less
+                            </button>
+                        )}
+                        {!noMore && (
+                            <button
+                                onClick={more}
+                                className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
+                            >
+                                see more
+                            </button>
+                        )}
+                    </div>
+                    {noMore && (
+                        <h3 className="my-3 text-center text-2xl">
+                            No more Items to show
+                        </h3>
+                    )}
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

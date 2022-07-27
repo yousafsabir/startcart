@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { onSnapshot, collection, query, limit } from "firebase/firestore";
+import {
+    onSnapshot,
+    collection,
+    query,
+    limit,
+} from "firebase/firestore";
 import ProductCard from "../components/ProductCard";
 
 const AllPd = () => {

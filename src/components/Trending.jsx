@@ -35,7 +35,7 @@ const Trending = () => {
             <div className="mb-3 flex items-center justify-between">
                 <h2 className="text-3xl font-semibold">Trending</h2>
                 <Link
-                    to={"/"}
+                    to={"/trending"}
                     className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
                 >
                     see more
