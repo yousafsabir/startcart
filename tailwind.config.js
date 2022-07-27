@@ -12,6 +12,9 @@ module.exports = {
             gridTemplateColumns: {
                 card: "repeat(auto-fill, minmax(230px,1fr))",
             },
+            backgroundImage: {
+                bgg: "linear-gradient(to right, rgba(186, 230, 253,0.5),rgba(186, 230, 253,0.5)),var(--pattern)",
+            },
         },
     },
     plugins: [

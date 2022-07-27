@@ -26,7 +26,7 @@ const ProductCard = (props) => {
                 <div>
                     Store:
                     <span
-                        className="ml-[5px] font-semibold"
+                        className="ml-[5px] cursor-pointer font-semibold"
                         onClick={() =>
                             navigate("/store", {
                                 state: {
