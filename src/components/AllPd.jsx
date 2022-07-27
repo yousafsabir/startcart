@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import {
-    onSnapshot,
-    collection,
-    query,
-    limit,
-} from "firebase/firestore";
+import { onSnapshot, collection, query, limit } from "firebase/firestore";
 import ProductCard from "../components/ProductCard";
+import { PuffLoader } from "react-spinners";
 
 const AllPd = () => {
     const [noMore, setNoMore] = useState(false);
@@ -38,6 +34,17 @@ const AllPd = () => {
     const less = () => {
         if (noMore) setPdLimit((prev) => prev - 10);
     };
+
+    if (allData.length === 0) {
+        return (
+            <div className="my-4 h-[400px] w-full">
+                <div className="mx-auto flex h-full max-w-7xl items-center justify-center rounded-lg bg-gray-100">
+                    <PuffLoader />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="mx-auto my-6 max-w-7xl px-4">
             <div className="mb-3 flex items-center justify-between">

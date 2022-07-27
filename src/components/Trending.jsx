@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import ProductCard from "./ProductCard";
+import { PuffLoader } from "react-spinners";
 
 const Trending = () => {
     const [trdData, setTrdData] = useState([]);
@@ -30,6 +31,15 @@ const Trending = () => {
             ),
         []
     );
+    if (trdData.length === 0) {
+        return (
+            <div className="my-4 h-[400px] w-full">
+                <div className="mx-auto flex h-full max-w-7xl items-center justify-center rounded-lg bg-gray-100">
+                    <PuffLoader />
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="mx-auto my-6 max-w-7xl px-4">
             <div className="mb-3 flex items-center justify-between">
