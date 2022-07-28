@@ -4,6 +4,7 @@ import Store from "./pages/Store";
 import Catagory from "./pages/Catagory";
 import Trending from "./pages/Trending";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="/catagory" element={<Catagory />} />
             <Route path="/trending" element={<Trending />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
         </Routes>
     );
 }

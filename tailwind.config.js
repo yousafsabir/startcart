@@ -8,6 +8,7 @@ module.exports = {
         extend: {
             boxShadow: {
                 card: "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)",
+                auth: "0 7px 15px rgba(0,0,0,0.25)",
             },
             gridTemplateColumns: {
                 card: "repeat(auto-fill, minmax(230px,1fr))",
