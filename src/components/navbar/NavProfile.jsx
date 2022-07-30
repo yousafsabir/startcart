@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/Auth";
 import Pic from "../../assets/images/man7.png";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 
 const NavProfile = () => {
-    const profile = {
-        fName: "Yousaf",
-        lName: "Sabir",
-    };
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.current);
     const [subMenu, setSubMenu] = useState(false);
+
+    const submit = () => {
+        dispatch(logout());
+    };
     return (
         <div
             className="relative flex cursor-pointer items-center gap-3"
@@ -19,8 +23,8 @@ const NavProfile = () => {
                 className="h-12 w-12 rounded-full "
             />
             <div className="flex select-none items-center gap-2">
-                <p>{`${profile.fName} ${profile.lName}`}</p>
-                {subMenu ? <VscTriangleDown /> : <VscTriangleUp />}
+                <p>{`${user?.name}`}</p>
+                {subMenu ? <VscTriangleUp /> : <VscTriangleDown />}
             </div>
             {/* Dropdown Menu */}
             <ul
@@ -37,7 +41,10 @@ const NavProfile = () => {
                 <li className="cursor-pointer rounded-sm p-2 py-[2px] hover:bg-gray-100">
                     Help
                 </li>
-                <li className="cursor-pointer rounded-sm p-2 py-[2px] hover:bg-gray-100">
+                <li
+                    className="cursor-pointer rounded-sm p-2 py-[2px] hover:bg-gray-100"
+                    onClick={submit}
+                >
                     Logout
                 </li>
             </ul>

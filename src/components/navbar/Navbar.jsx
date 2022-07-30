@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Logo from "../../assets/images/logo.png";
 import NavCart from "./NavCart";
 import NavCTA from "./NavCTA";
 import NavProfile from "./NavProfile";
 
 const Navbar = () => {
-    const user = false;
+    const isUserPresent = useSelector((state) => state.auth.isPresent);
     return (
         <>
             <section className="fixed top-0 z-50 w-full bg-gray-200">
@@ -23,7 +24,7 @@ const Navbar = () => {
 
                     {/* Right Side */}
                     <div className="flex items-center gap-6">
-                        {user ? <NavProfile /> : <NavCTA />}
+                        {isUserPresent ? <NavProfile /> : <NavCTA />}
 
                         <div className="h-8 w-[2px] bg-gray-400"></div>
 

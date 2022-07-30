@@ -1,4 +1,7 @@
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux/es/exports";
+import { fetchAdmins } from "./redux/slices/Auth";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import Catagory from "./pages/Catagory";
@@ -7,6 +10,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchAdmins());
+    }, []);
     return (
         <Routes>
             <Route path="/" element={<Home />} />

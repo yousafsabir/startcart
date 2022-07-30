@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Pattern from "../assets/images/pattern5.jpg";
 import Logo from "../assets/images/logo.png";
-import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../redux/slices/Auth";
+import STATUSES from "../redux/STATUSES";
+import AUTH from "../redux/actions/AUTH";
 
 const Signup = () => {
+    const dispatch = useDispatch();
+    const status = useSelector((state) => state.auth.status);
+    const action = useSelector((state) => state.auth.action);
+    const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [address, setAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    const [pass, setPass] = useState("");
+    const [cPass, setCPass] = useState("");
+
+    const isValid = Boolean(
+        name && email && address && phone && pass === cPass
+    );
+
+    const submit = () => {
+        dispatch(
+            signup({
+                name,
+                email,
+                address,
+                phone,
+                pass,
+            })
+        );
+    };
+    useEffect(() => {
+        if (status === STATUSES.IDLE && action === AUTH.SIGNUP) {
+            setEmail("");
+            setPass("");
+            navigate("/");
+        }
+    }, [status, action]);
     return (
         <div className="relative flex min-h-screen w-full items-center justify-center">
             <div
@@ -22,7 +59,7 @@ const Signup = () => {
                 </div>
                 <div className="flex gap-4">
                     <div className="flex-1">
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
                                 type="text"
                                 name="floating_name"
@@ -30,6 +67,7 @@ const Signup = () => {
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setName(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_name"
@@ -38,7 +76,7 @@ const Signup = () => {
                                 Full Name
                             </label>
                         </div>
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
                                 type="email"
                                 name="floating_email"
@@ -46,6 +84,7 @@ const Signup = () => {
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_email"
@@ -54,14 +93,15 @@ const Signup = () => {
                                 Email address
                             </label>
                         </div>
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
-                                type="number"
+                                type="text"
                                 name="floating_number"
                                 id="floating_number"
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setPhone(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_number"
@@ -72,7 +112,7 @@ const Signup = () => {
                         </div>
                     </div>
                     <div className="flex-1">
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
                                 type="text"
                                 name="floating_address"
@@ -80,6 +120,7 @@ const Signup = () => {
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setAddress(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_address"
@@ -88,7 +129,7 @@ const Signup = () => {
                                 Complete Address
                             </label>
                         </div>
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
                                 type="password"
                                 name="floating_password"
@@ -96,6 +137,7 @@ const Signup = () => {
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setPass(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_password"
@@ -104,7 +146,7 @@ const Signup = () => {
                                 Password
                             </label>
                         </div>
-                        <div class="group relative z-0 mb-6 w-full">
+                        <div className="group relative z-0 mb-6 w-full">
                             <input
                                 type="password"
                                 name="floating_password"
@@ -112,6 +154,7 @@ const Signup = () => {
                                 className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-sky-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                                 required
+                                onChange={(e) => setCPass(e.target.value)}
                             />
                             <label
                                 htmlFor="floating_password"
@@ -126,6 +169,8 @@ const Signup = () => {
                 <button
                     type="submit"
                     className="w-full rounded-lg bg-sky-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-4 focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 sm:w-auto"
+                    disabled={!isValid}
+                    onClick={submit}
                 >
                     Submit
                 </button>
