@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/Auth";
-import Pic from "../../assets/images/man7.png";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
+import { BsFillPersonFill } from "react-icons/bs";
 
 const NavProfile = () => {
     const dispatch = useDispatch();
@@ -17,11 +17,9 @@ const NavProfile = () => {
             className="relative flex cursor-pointer items-center gap-3"
             onClick={() => setSubMenu((prev) => !prev)}
         >
-            <img
-                src={Pic}
-                alt="Profile-picture"
-                className="h-12 w-12 rounded-full "
-            />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-400">
+                <BsFillPersonFill className="text-4xl text-gray-200" />
+            </div>
             <div className="flex select-none items-center gap-2">
                 <p>{`${user?.name}`}</p>
                 {subMenu ? <VscTriangleUp /> : <VscTriangleDown />}
