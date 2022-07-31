@@ -34,8 +34,8 @@ const Trending = () => {
     if (trdData.length === 0) {
         return (
             <div className="my-4 h-[400px] w-full">
-                <div className="mx-auto flex h-full max-w-7xl items-center justify-center rounded-lg bg-gray-100">
-                    <PuffLoader />
+                <div className="mx-auto flex h-full max-w-7xl items-center justify-center rounded-lg bg-gray-100 text-sky-600">
+                    <PuffLoader color={"rgb(2 132 199)"} />
                 </div>
             </div>
         );
