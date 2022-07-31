@@ -59,7 +59,10 @@ const Store = () => {
                     <div className="grid grid-cols-card gap-4">
                         {data?.map((doc, i) => {
                             return (
-                                <div className="flex justify-center" key={i}>
+                                <div
+                                    className="flex justify-center"
+                                    key={doc.id}
+                                >
                                     <ProductCard
                                         img={doc.img}
                                         title={doc.title}
