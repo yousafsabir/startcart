@@ -2,6 +2,7 @@ import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast'
 import "./ProductCard.css";
 
 const ProductCard = (props) => {
