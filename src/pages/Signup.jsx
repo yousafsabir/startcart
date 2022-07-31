@@ -3,6 +3,7 @@ import Pattern from "../assets/images/pattern5.jpg";
 import Logo from "../assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 import { signup } from "../redux/slices/Auth";
 import STATUSES from "../redux/STATUSES";
 import AUTH from "../redux/actions/AUTH";
@@ -12,6 +13,10 @@ const Signup = () => {
     const status = useSelector((state) => state.auth.status);
     const action = useSelector((state) => state.auth.action);
     const navigate = useNavigate();
+
+    const loading = Boolean(
+        status === STATUSES.LOADING && action === AUTH.LOGIN
+    );
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -168,11 +173,15 @@ const Signup = () => {
 
                 <button
                     type="submit"
-                    className="w-full rounded-lg bg-sky-700 px-5 py-2 text-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-4 focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 sm:w-auto"
+                    className="flex h-9 w-full items-center justify-center rounded-lg bg-sky-700 px-5 text-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-4 focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800 sm:w-auto"
                     disabled={!isValid}
                     onClick={submit}
                 >
-                    Submit
+                    {loading ? (
+                        <ClipLoader size={17} color={"rgb(224 242 254)"} />
+                    ) : (
+                        "Submit"
+                    )}
                 </button>
                 <span className="mt-2 text-center text-xs text-gray-500">
                     Already a Member?, Login{" "}
