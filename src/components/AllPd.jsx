@@ -61,6 +61,7 @@ const AllPd = () => {
                                 store={doc.store}
                                 price={doc.price}
                                 storecode={doc.storecode}
+                                id={doc.id}
                             />
                         </div>
                     );

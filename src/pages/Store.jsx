@@ -69,6 +69,7 @@ const Store = () => {
                                         desc={doc.desc}
                                         store={doc.store}
                                         price={doc.price}
+                                        id={doc.id}
                                     />
                                 </div>
                             );

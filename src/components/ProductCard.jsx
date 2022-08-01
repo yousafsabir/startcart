@@ -1,20 +1,24 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/slices/Product";
 import { useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 import "./ProductCard.css";
 
 const ProductCard = (props) => {
+    const dispatch = useDispatch();
     const isUserPresent = useSelector((state) => state.auth.isPresent);
     const navigate = useNavigate();
 
-    const addToCart = () => {
+    const addCart = (args) => {
         if (!isUserPresent) {
             navigate("/login");
             toast("⚠ You need to first login", {
                 style: { backgroundColor: "yellow" },
             });
+        } else {
+            dispatch(addToCart(args));
         }
     };
     return (
@@ -57,7 +61,13 @@ const ProductCard = (props) => {
                     </span>
                     <div
                         className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-300 transition-all hover:h-10 hover:w-10"
-                        onClick={() => addToCart()}
+                        onClick={() =>
+                            addCart({
+                                productId: props.id,
+                                price: props.price,
+                                qty: 1,
+                            })
+                        }
                     >
                         <AiOutlineShoppingCart className="text-xl" />
                     </div>

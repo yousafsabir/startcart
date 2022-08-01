@@ -6,7 +6,6 @@ import {
 } from "firebase/auth";
 import { collection, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import STATUSES from "../STATUSES";
 import AUTH from "../actions/AUTH";
 import toast from "react-hot-toast";
@@ -84,7 +83,7 @@ export const login = createAsyncThunk("login", async (args, thunkApi) => {
             thunkApi.dispatch(addCurrent(snapshot.data()));
             thunkApi.dispatch(setStatus(STATUSES.IDLE));
             thunkApi.dispatch(setAction(AUTH.LOGIN));
-            // navigate("/");
+            console.log(`%c 🎉 Successfully logged in`, style.normal);
             toast(`🥳 Welcome Back ${snapshot.data().name}`, {
                 duration: 3000,
                 style: { backgroundColor: "green" },
@@ -107,6 +106,7 @@ export const login = createAsyncThunk("login", async (args, thunkApi) => {
 export const logout = createAsyncThunk("logout", async (args, thunkApi) => {
     thunkApi.dispatch(setStatus(STATUSES.LOADING));
     thunkApi.dispatch(setAction(AUTH.LOGOUT));
+    console.log(`%c 🔴🟠🟡 Logging out`, style.normal);
     try {
         thunkApi.dispatch(removeCurrent());
         await signOut(auth);
