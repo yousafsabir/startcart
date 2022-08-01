@@ -20,6 +20,7 @@ const style = {
 const Product = createSlice({
     name: "product",
     initialState: {
+        cartItems: [],
         status: STATUSES.IDLE,
         action: PRODUCT.IDLE,
     },
@@ -30,10 +31,24 @@ const Product = createSlice({
         setAction: (state, action) => {
             state.action = action.payload;
         },
+        setCartItems: (state, action) => {
+            if (state.cartItems.length === 0) {
+                state.cartItems = [...state.cartItems, action.payload];
+                console.log("In State, check === 0", state.cartItems);
+            } else {
+                let index = state.cartItems.findIndex(
+                    (product) => product.id === action.payload.id
+                );
+                if (index === -1) {
+                    state.cartItems = [...state.cartItems, action.payload];
+                    console.log("In State, check === -1", state.cartItems);
+                }
+            }
+        },
     },
 });
 
-export const { setStatus, setAction } = Product.actions;
+export const { setStatus, setAction, setCartItems } = Product.actions;
 
 export default Product.reducer;
 
@@ -70,3 +85,21 @@ export const addToCart = createAsyncThunk(
         }
     }
 );
+
+export const cartItem = createAsyncThunk("cartItem", async (args, thunkApi) => {
+    const arr = args;
+    if (arr.length === 0) return;
+    try {
+        console.log("hello");
+        arr.forEach(async (item) => {
+            let docRef = doc(db, "products", item.productId);
+            const snapshot = await getDoc(docRef);
+            thunkApi.dispatch(setCartItems(snapshot.data()));
+        });
+    } catch (error) {
+        console.log(
+            `%c ❌ Couldn't Set to cart { type:${error.name} , msg: ${error.message}}`,
+            style.error
+        );
+    }
+});
