@@ -8,15 +8,6 @@ import toast from "react-hot-toast";
 
 const NavCart = () => {
     const isUserPresent = useSelector((state) => state.auth.isPresent);
-    const user = useSelector((state) => state.auth.current);
-    const [count, setCount] = useState(0);
-    useEffect(
-        () =>
-            onSnapshot(doc(db, "users", user.uid), (user) => {
-                setCount(user.data().cartQty);
-            }),
-        [isUserPresent]
-    );
     return (
         <div>
             <Link
@@ -31,9 +22,6 @@ const NavCart = () => {
                 }}
             >
                 <BsCart3 className="text-xl" />
-                <div className="absolute top-[-5px] left-[21%] flex h-4 w-4 items-center justify-center rounded-full bg-sky-600 text-sm text-white">
-                    <span>{count ?? 0}</span>
-                </div>
                 <p>Cart</p>
             </Link>
         </div>

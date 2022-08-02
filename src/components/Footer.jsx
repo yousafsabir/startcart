@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../assets/images/logo.png";
 import { BsTwitter, BsGithub } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -11,20 +12,21 @@ const Footer = () => {
                     <h2 className="text-lg font-semibold">
                         <span className="italic text-sky-600">Start </span>Cart
                     </h2>
-                    <div className="h-8 w-[2px] bg-gray-400"></div>
+                    <div className="mx-2 h-8 w-[2px] bg-gray-400"></div>
                     <p>
                         &copy; 2022 - <span className="text-2xl">&infin;</span>
                     </p>
+                    <div className="mx-2 h-8 w-[2px] bg-gray-400"></div>
+                    <Link to={"/about"} className="text-lg text-gray-700">
+                        About
+                    </Link>
                 </div>
-                <div className="flex items-center gap-3 text-[22px]">
+                <div className="text-[22px]">
                     <a
                         href="https://github.com/yousafsabir/startcart"
                         target="_blank"
                     >
                         <BsGithub className="text-gray-500 transition duration-300 hover:text-gray-800" />
-                    </a>
-                    <a href="https://twitter.com/yousafsabir7" target="_blank">
-                        <BsTwitter className="text-gray-500 transition duration-300 hover:text-sky-600" />
                     </a>
                 </div>
             </div>

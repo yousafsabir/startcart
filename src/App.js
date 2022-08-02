@@ -11,6 +11,7 @@ import Trending from "./pages/Trending";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
+import About from "./pages/About";
 
 function App() {
     const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/about" element={<About />} />
         </Routes>
     );
 }
