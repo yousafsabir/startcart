@@ -151,7 +151,7 @@ export const removeItem = createAsyncThunk(
             const user = thunkApi.getState().auth.current;
             const docRef = doc(db, `users/${user.uid}/cart`, args);
             await deleteDoc(docRef);
-            const userRef = doc(doc, "users", user.uid);
+            const userRef = doc(db, "users", user.uid);
             await setDoc(userRef, {
                 ...user,
                 cartQty: user.cartQty - 1,
