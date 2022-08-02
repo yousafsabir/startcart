@@ -6,6 +6,9 @@ import {
     doc,
     setDoc,
     addDoc,
+    query,
+    where,
+    deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
@@ -20,7 +23,6 @@ const style = {
 const Product = createSlice({
     name: "product",
     initialState: {
-        cartItems: [],
         status: STATUSES.IDLE,
         action: PRODUCT.IDLE,
     },
@@ -30,20 +32,6 @@ const Product = createSlice({
         },
         setAction: (state, action) => {
             state.action = action.payload;
-        },
-        setCartItems: (state, action) => {
-            if (state.cartItems.length === 0) {
-                state.cartItems = [...state.cartItems, action.payload];
-                console.log("In State, check === 0", state.cartItems);
-            } else {
-                let index = state.cartItems.findIndex(
-                    (product) => product.id === action.payload.id
-                );
-                if (index === -1) {
-                    state.cartItems = [...state.cartItems, action.payload];
-                    console.log("In State, check === -1", state.cartItems);
-                }
-            }
         },
     },
 });
@@ -63,14 +51,30 @@ export const addToCart = createAsyncThunk(
         try {
             const uid = thunkApi.getState().auth.current.uid;
             const collectionRef = collection(db, `users/${uid}/cart`);
-            await addDoc(collectionRef, args);
-            thunkApi.dispatch(setStatus(STATUSES.IDLE));
-            thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
-            console.log(`%c ✔ Added to cart`, style.normal);
-            toast("✔ Added to cart", {
-                duration: 3000,
-                style: { backgroundColor: "green" },
-            });
+            const q = query(
+                collectionRef,
+                where("productId", "==", args.productId)
+            );
+            // Checking if the product already exists in the cart
+            const snapshot = await getDocs(q);
+            if (snapshot.docs.length !== 0) {
+                toast("⚠ Item already in the cart", {
+                    duration: 3000,
+                    style: { backgroundColor: "yellow" },
+                });
+                thunkApi.dispatch(setStatus(STATUSES.IDLE));
+                thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
+            } else {
+                console.log("not in check");
+                await addDoc(collectionRef, args);
+                thunkApi.dispatch(setStatus(STATUSES.IDLE));
+                thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
+                console.log(`%c ✔ Added to cart`, style.normal);
+                toast("✔ Added to cart", {
+                    duration: 3000,
+                    style: { backgroundColor: "green" },
+                });
+            }
         } catch (error) {
             thunkApi.dispatch(setStatus(STATUSES.ERROR));
             thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
@@ -86,20 +90,73 @@ export const addToCart = createAsyncThunk(
     }
 );
 
-export const cartItem = createAsyncThunk("cartItem", async (args, thunkApi) => {
-    const arr = args;
-    if (arr.length === 0) return;
-    try {
-        console.log("hello");
-        arr.forEach(async (item) => {
-            let docRef = doc(db, "products", item.productId);
-            const snapshot = await getDoc(docRef);
-            thunkApi.dispatch(setCartItems(snapshot.data()));
-        });
-    } catch (error) {
-        console.log(
-            `%c ❌ Couldn't Set to cart { type:${error.name} , msg: ${error.message}}`,
-            style.error
-        );
+export const increaseQty = createAsyncThunk(
+    "increaseQty",
+    async (args, thunkApi) => {
+        try {
+            console.log("⬆ increasing qty");
+            const uid = thunkApi.getState().auth.current.uid;
+            const docRef = doc(db, `users/${uid}/cart`, args.itemId);
+            await setDoc(docRef, {
+                ...args,
+                qty: args.qty + 1,
+            });
+            console.log("qty increased");
+        } catch (error) {
+            console.log(
+                `%c ❌ Couldn't increase Qty { type:${error.name} , msg: ${error.message}}`,
+                style.error
+            );
+            toast(`❌ ${error.message}`, {
+                duration: 3000,
+                style: { backgroundColor: "red" },
+            });
+        }
     }
-});
+);
+export const decreaseQty = createAsyncThunk(
+    "increaseQty",
+    async (args, thunkApi) => {
+        try {
+            console.log("⬇ decreasing qty");
+            const uid = thunkApi.getState().auth.current.uid;
+            const docRef = doc(db, `users/${uid}/cart`, args.itemId);
+            await setDoc(docRef, {
+                ...args,
+                qty: args.qty - 1,
+            });
+            console.log("qty decreased");
+        } catch (error) {
+            console.log(
+                `%c ❌ Couldn't decrease Qty { type:${error.name} , msg: ${error.message}}`,
+                style.error
+            );
+            toast(`❌ ${error.message}`, {
+                duration: 3000,
+                style: { backgroundColor: "red" },
+            });
+        }
+    }
+);
+
+export const removeItem = createAsyncThunk(
+    "removeItem",
+    async (args, thunkApi) => {
+        try {
+            console.log("🗑 removing doc");
+            const uid = thunkApi.getState().auth.current.uid;
+            const docRef = doc(db, `users/${uid}/cart`, args);
+            await deleteDoc(docRef);
+            console.log("🗑 doc removed");
+        } catch (error) {
+            console.log(
+                `%c ❌ Couldn't remove doc { type:${error.name} , msg: ${error.message}}`,
+                style.error
+            );
+            toast(`❌ ${error.message}`, {
+                duration: 3000,
+                style: { backgroundColor: "red" },
+            });
+        }
+    }
+);

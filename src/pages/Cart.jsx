@@ -4,33 +4,24 @@ import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/navbar/Navbar";
 import CartCTA from "../components/CartCTA";
-import { cartItem } from "../redux/slices/Product";
 
 const Cart = () => {
-    const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.current);
-    const data = useSelector((state) => state.product.cartItems);
-    const [items, setItems] = useState([]);
+    const [data, setData] = useState([]);
     useEffect(
         () =>
             onSnapshot(
                 collection(db, `users/${user?.uid}/cart`),
                 (snapshot) => {
-                    setItems(
+                    setData(
                         snapshot.docs.map((doc) => {
-                            return { ...doc.data() };
+                            return { ...doc.data(), itemId: doc.id };
                         })
                     );
                 }
             ),
         []
     );
-    useEffect(() => {
-        console.log("Cart Items", items);
-        if (items.length !== 0) {
-            dispatch(cartItem(items));
-        }
-    }, [items]);
     return (
         <>
             <Navbar />
@@ -38,14 +29,32 @@ const Cart = () => {
                 <div className="mx-auto my-6 max-w-7xl px-4 pt-9">
                     <h2 className="mb-3 text-3xl font-semibold">Cart</h2>
                     <table className="w-full">
+                        <thead>
+                            <tr>
+                                <th className="px-1 py-2 text-left text-xl">
+                                    Image
+                                </th>
+                                <th className="px-1 py-2 text-left text-xl">
+                                    Title
+                                </th>
+                                <th className="px-1 py-2 text-left text-xl">
+                                    Price
+                                </th>
+                                <th className="px-1 py-2 text-left text-xl">
+                                    Quantity
+                                </th>
+                                <th className="px-1 py-2 text-left text-xl">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {data?.map((doc) => {
                                 return (
                                     <tr
                                         className="bg-gray-100 even:bg-gray-200"
-                                        key={doc.productId}
+                                        key={doc.itemId}
                                     >
-                                        <th className="px-1 py-4"></th>
                                         <td className="px-1 py-4">
                                             <img
                                                 src={doc.img}
@@ -57,10 +66,11 @@ const Cart = () => {
                                             {doc.title}
                                         </td>
                                         <td className="px-1 py-4 font-semibold">
-                                            &#8360;{doc.price}
+                                            &#8360;{doc.price * doc.qty}
                                         </td>
+                                        <td className="px-1 py-4">{doc.qty}</td>
                                         <td className="space-x-2 px-1 py-4">
-                                            {/* <CartCTA /> */}
+                                            <CartCTA document={doc} />
                                         </td>
                                     </tr>
                                 );

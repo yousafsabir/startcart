@@ -64,7 +64,11 @@ const ProductCard = (props) => {
                         onClick={() =>
                             addCart({
                                 productId: props.id,
+                                img: props.img,
+                                title: props.title,
+                                desc: props.desc,
                                 price: props.price,
+                                storecode: props.storecode,
                                 qty: 1,
                             })
                         }
