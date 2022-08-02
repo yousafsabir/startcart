@@ -65,7 +65,6 @@ export const addToCart = createAsyncThunk(
                 thunkApi.dispatch(setStatus(STATUSES.IDLE));
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
             } else {
-                console.log("not in check");
                 await addDoc(collectionRef, args);
                 thunkApi.dispatch(setStatus(STATUSES.IDLE));
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));

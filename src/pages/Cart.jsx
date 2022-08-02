@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
+import { collection, onSnapshot } from "firebase/firestore";
+import { useSelector } from "react-redux";
 import Navbar from "../components/navbar/Navbar";
 import CartCTA from "../components/CartCTA";
 

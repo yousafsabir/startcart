@@ -1,4 +1,8 @@
 import React, { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { checkForLoggedIn, fetchAdmins } from "./redux/slices/Auth";
+import { auth } from "./firebase";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
@@ -9,6 +13,20 @@ import Signup from "./pages/Signup";
 import Cart from "./pages/Cart";
 
 function App() {
+    const dispatch = useDispatch();
+    // loading Admins
+    useEffect(() => {
+        dispatch(fetchAdmins());
+    }, []);
+
+    // Loading user automatically
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (user) => {
+            dispatch(checkForLoggedIn(user.uid));
+        });
+        return unsub;
+    }, []);
+
     return (
         <Routes>
             <Route path="/" element={<Home />} />

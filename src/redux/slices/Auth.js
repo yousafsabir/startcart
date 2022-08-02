@@ -170,6 +170,36 @@ export const signup = createAsyncThunk("logout", async (args, thunkApi) => {
     }
 });
 
+export const checkForLoggedIn = createAsyncThunk(
+    "checkForLoggedIn",
+    async (args, thunkApi) => {
+        console.log("here in checkForLoggedIn");
+        toast(`🕓 Authenticating`, {
+            duration: 3000,
+            style: { backgroundColor: "green" },
+        });
+        try {
+            const docRef = doc(db, "users", args);
+            const snapshot = await getDoc(docRef);
+            thunkApi.dispatch(addCurrent(snapshot.data()));
+            console.log(`%c 🎉 Successfully logged in`, style.normal);
+            toast(`🥳 Welcome Back ${snapshot.data().name}`, {
+                duration: 3000,
+                style: { backgroundColor: "green" },
+            });
+        } catch (error) {
+            toast(`❌ ${error.message}`, {
+                duration: 3000,
+                style: { backgroundColor: "red" },
+            });
+            console.log(
+                `%c ❌ Couldn't Log you in { type:${error.name} , msg: ${error.message}}`,
+                style.error
+            );
+        }
+    }
+);
+
 export const fetchAdmins = createAsyncThunk(
     "admins/fetch",
     async (arg, thunkApi) => {
