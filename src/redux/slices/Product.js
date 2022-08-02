@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import {
     collection,
     getDocs,
@@ -49,8 +49,9 @@ export const addToCart = createAsyncThunk(
         thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
         console.log(`%c 🔴🟠🟡 Adding to cart`, style.normal);
         try {
-            const uid = thunkApi.getState().auth.current.uid;
-            const collectionRef = collection(db, `users/${uid}/cart`);
+            const user = thunkApi.getState().auth.current;
+            const collectionRef = collection(db, `users/${user.uid}/cart`);
+            const docRef = doc(db, "users", user.uid);
             const q = query(
                 collectionRef,
                 where("productId", "==", args.productId)
@@ -66,6 +67,10 @@ export const addToCart = createAsyncThunk(
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
             } else {
                 await addDoc(collectionRef, args);
+                await setDoc(docRef, {
+                    ...user,
+                    cartQty: user.cartQty + 1,
+                });
                 thunkApi.dispatch(setStatus(STATUSES.IDLE));
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
                 console.log(`%c ✔ Added to cart`, style.normal);
@@ -143,9 +148,14 @@ export const removeItem = createAsyncThunk(
     async (args, thunkApi) => {
         try {
             console.log("🗑 removing doc");
-            const uid = thunkApi.getState().auth.current.uid;
-            const docRef = doc(db, `users/${uid}/cart`, args);
+            const user = thunkApi.getState().auth.current;
+            const docRef = doc(db, `users/${user.uid}/cart`, args);
             await deleteDoc(docRef);
+            const userRef = doc(doc, "users", user.uid);
+            await setDoc(userRef, {
+                ...user,
+                cartQty: user.cartQty - 1,
+            });
             console.log("🗑 doc removed");
         } catch (error) {
             console.log(

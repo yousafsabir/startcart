@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { onSnapshot, doc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
@@ -7,7 +9,14 @@ import toast from "react-hot-toast";
 const NavCart = () => {
     const isUserPresent = useSelector((state) => state.auth.isPresent);
     const user = useSelector((state) => state.auth.current);
-    let count = isUserPresent ? user.cartQty : "0";
+    const [count, setcount] = useState(0);
+    useEffect(
+        () =>
+            onSnapshot(doc(db, "users", user.uid), (user) => {
+                setcount(user.data().cartQty);
+            }),
+        [isUserPresent]
+    );
     return (
         <div>
             <Link
