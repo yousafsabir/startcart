@@ -137,7 +137,6 @@ export const signup = createAsyncThunk("logout", async (args, thunkApi) => {
             email: args.email,
             address: args.address,
             phone: args.phone,
-            cartQty: "0",
             uid,
         });
         thunkApi.dispatch(
@@ -146,7 +145,6 @@ export const signup = createAsyncThunk("logout", async (args, thunkApi) => {
                 email: args.email,
                 address: args.address,
                 phone: args.phone,
-                cartQty: "0",
                 uid,
             })
         );
