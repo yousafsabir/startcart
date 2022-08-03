@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/Auth";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import { BsFillPersonFill } from "react-icons/bs";
 
 const NavProfile = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.current);
     const [subMenu, setSubMenu] = useState(false);
 
     const submit = () => {
         dispatch(logout());
+        navigate("/");
     };
     return (
         <div
