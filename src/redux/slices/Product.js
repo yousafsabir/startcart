@@ -11,6 +11,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { incCartQty, decCartQty } from "./Auth";
 import toast from "react-hot-toast";
 import STATUSES from "../STATUSES";
 import PRODUCT from "../actions/PRODUCT";
@@ -51,7 +52,7 @@ export const addToCart = createAsyncThunk(
         try {
             const user = thunkApi.getState().auth.current;
             const collectionRef = collection(db, `users/${user.uid}/cart`);
-            const docRef = doc(db, "users", user.uid);
+            const userRef = doc(db, "users", user.uid);
             const q = query(
                 collectionRef,
                 where("productId", "==", args.productId)
@@ -67,10 +68,11 @@ export const addToCart = createAsyncThunk(
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
             } else {
                 await addDoc(collectionRef, args);
-                await setDoc(docRef, {
+                await setDoc(userRef, {
                     ...user,
                     cartQty: user.cartQty + 1,
                 });
+                thunkApi.dispatch(incCartQty());
                 thunkApi.dispatch(setStatus(STATUSES.IDLE));
                 thunkApi.dispatch(setAction(PRODUCT.ADDTOCART));
                 console.log(`%c ✔ Added to cart`, style.normal);
@@ -156,6 +158,7 @@ export const removeItem = createAsyncThunk(
                 ...user,
                 cartQty: user.cartQty - 1,
             });
+            thunkApi.dispatch(incCartQty());
             console.log("🗑 doc removed");
         } catch (error) {
             console.log(

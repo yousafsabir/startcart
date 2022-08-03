@@ -50,11 +50,24 @@ const Auth = createSlice({
         setAction: (state, action) => {
             state.action = action.payload;
         },
+        incCartQty: (state) => {
+            state.current.cartQty += 1;
+        },
+        decCartQty: (state) => {
+            state.current.cartQty -= 1;
+        },
     },
 });
 
-export const { addAdmin, setStatus, setAction, addCurrent, removeCurrent } =
-    Auth.actions;
+export const {
+    addAdmin,
+    setStatus,
+    setAction,
+    addCurrent,
+    removeCurrent,
+    incCartQty,
+    decCartQty,
+} = Auth.actions;
 
 export default Auth.reducer;
 
@@ -137,6 +150,7 @@ export const signup = createAsyncThunk("logout", async (args, thunkApi) => {
             email: args.email,
             address: args.address,
             phone: args.phone,
+            cartQty: 0,
             uid,
         });
         thunkApi.dispatch(
@@ -145,6 +159,7 @@ export const signup = createAsyncThunk("logout", async (args, thunkApi) => {
                 email: args.email,
                 address: args.address,
                 phone: args.phone,
+                cartQty: 0,
                 uid,
             })
         );
