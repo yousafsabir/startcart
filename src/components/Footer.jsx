@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div className="h-[70px] w-full bg-blue-100">
-            <div className="mx-auto my-auto flex h-full max-w-7xl items-center justify-between px-4">
+        <div className="h-[100px] w-full bg-blue-100 p-3 sm:h-[70px] sm:p-0">
+            <div className="mx-auto my-auto flex h-full max-w-7xl flex-col items-center justify-between px-4 sm:flex-row">
                 <div className="flex items-center gap-2">
                     <img src={Logo} alt="website-logo" className="w-7" />
                     <h2 className="text-lg font-semibold">
