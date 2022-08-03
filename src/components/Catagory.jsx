@@ -45,7 +45,7 @@ const Catagory = () => {
     return (
         <div className="mx-auto my-6 max-w-7xl px-4">
             <div className="mb-3 flex items-center justify-between">
-                <div className="flex items-center">
+                <div className="flex items-center justify-between sm:justify-center">
                     <h2 className="text-3xl font-semibold">
                         Search By Catagory
                     </h2>
@@ -61,7 +61,7 @@ const Catagory = () => {
                 </div>
                 <button
                     onClick={() => navigate("/catagory", { state: catagory })}
-                    className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
+                    className="hidden rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95 sm:block"
                 >
                     see more
                 </button>
@@ -82,6 +82,14 @@ const Catagory = () => {
                         </div>
                     );
                 })}
+            </div>
+            <div className="mt-2 mb-3 flex justify-center sm:hidden">
+                <button
+                    onClick={() => navigate("/catagory", { state: catagory })}
+                    className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
+                >
+                    see more
+                </button>
             </div>
         </div>
     );

@@ -20,7 +20,7 @@ const About = () => {
             <div className="relative mx-auto my-0 flex max-w-4xl flex-col items-center justify-center gap-8 p-4">
                 {/* back button */}
                 <button
-                    className="absolute  top-[-5%] left-[-5%]"
+                    className="absolute top-[-15%] left-1/2 md:top-[-5%] md:left-[-5%]"
                     onClick={() => navigate(-1)}
                 >
                     <BsArrowLeftCircle className="text-3xl text-gray-600" />
@@ -34,7 +34,7 @@ const About = () => {
                 <p className="text-center text-xl text-gray-700">
                     A dummy online store made with:
                 </p>
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center justify-center gap-3">
                     <img src={ReactLogo} alt="react" className="w-[104px]" />
                     <img src={Redux} alt="redux" className="w-32" />
                     <img src={Router} alt="react-router" className="w-28" />

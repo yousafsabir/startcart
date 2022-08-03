@@ -46,7 +46,7 @@ const Trending = () => {
                 <h2 className="text-3xl font-semibold">Trending</h2>
                 <Link
                     to={"/trending"}
-                    className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95"
+                    className="hidden rounded bg-gray-300  px-2 py-1 text-gray-700 active:scale-95 sm:block"
                 >
                     see more
                 </Link>
@@ -67,6 +67,14 @@ const Trending = () => {
                         </div>
                     );
                 })}
+            </div>
+            <div className="mt-2 mb-3 flex justify-center sm:hidden">
+                <Link
+                    to={"/trending"}
+                    className="rounded bg-gray-300 px-2 py-1 text-gray-700 active:scale-95 sm:hidden"
+                >
+                    see more
+                </Link>
             </div>
         </div>
     );
