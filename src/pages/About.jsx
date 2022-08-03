@@ -20,9 +20,12 @@ const About = () => {
             <div className="relative mx-auto my-0 flex max-w-4xl flex-col items-center justify-center gap-8 p-4">
                 {/* back button */}
                 <button
-                    className="absolute top-[-15%] left-1/2 md:top-[-5%] md:left-[-5%]"
+                    className="absolute left-1/2 hidden md:top-[-5%] md:left-[-5%] md:block"
                     onClick={() => navigate(-1)}
                 >
+                    <BsArrowLeftCircle className="text-3xl text-gray-600" />
+                </button>
+                <button className="md:hidden" onClick={() => navigate(-1)}>
                     <BsArrowLeftCircle className="text-3xl text-gray-600" />
                 </button>
                 <div className="flex items-center gap-4">
