@@ -48,10 +48,10 @@ const Signup = () => {
         }
     }, [status, action]);
     return (
-        <div className="relative flex min-h-screen w-full items-center justify-center">
+        <div className="relative flex min-h-screen w-full items-center justify-center p-6">
             <div
                 style={{ "--pattern": `url("${Pattern}")` }}
-                className="absolute top-1/2 -z-10 h-[150px] w-full -translate-y-1/2 transform bg-bgg bg-cover bg-repeat"
+                className="absolute top-1/2 -z-10 h-[120px] w-full -translate-y-1/2 transform bg-bgg bg-cover bg-repeat sm:h-[150px]"
             ></div>
 
             <form

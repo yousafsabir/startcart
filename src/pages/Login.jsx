@@ -38,11 +38,11 @@ const Login = () => {
         <div className="relative flex min-h-screen w-full items-center justify-center">
             <div
                 style={{ "--pattern": `url("${Pattern}")` }}
-                className="absolute top-1/2 -z-10 h-[150px] w-full -translate-y-1/2 transform bg-bgg bg-cover bg-repeat"
+                className="absolute top-1/2 -z-10 h-[120px] w-full -translate-y-1/2 transform bg-bgg bg-cover bg-repeat sm:h-[150px]"
             ></div>
 
             <form
-                className="flex w-[325px] flex-col gap-1 rounded-md bg-gray-100 p-6 shadow-auth 2xl:w-[350px]"
+                className="flex w-[310px] flex-col gap-1 rounded-md bg-gray-100 p-6 shadow-auth 2xl:w-[350px]"
                 onSubmit={(e) => e.preventDefault()}
             >
                 <div className="mb-4 flex items-end justify-center gap-3">
