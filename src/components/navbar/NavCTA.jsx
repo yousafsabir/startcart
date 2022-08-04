@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavCTA = () => {
     return (
-        <div className="space-x-4">
+        <div className="flex flex-wrap-reverse justify-center gap-4">
             <Link
                 to="/signup"
                 className="rounded border-[1.5px] border-sky-600 bg-transparent py-2 px-5 text-sky-600 transition-all hover:scale-110 hover:shadow-md"
