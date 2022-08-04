@@ -10,7 +10,7 @@ import NavMenu from "./NavMenu";
 
 const Navbar = () => {
     const isUserPresent = useSelector((state) => state.auth.isPresent);
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     return (
         <>
@@ -38,7 +38,7 @@ const Navbar = () => {
 
                         <div className="h-8 w-[2px] bg-gray-400 sm:hidden"></div>
 
-                        <div
+                        <button
                             className="sm:hidden"
                             onClick={() => setOpen((prev) => !prev)}
                         >
@@ -47,7 +47,7 @@ const Navbar = () => {
                             ) : (
                                 <BiMenu className="text-2xl" />
                             )}
-                        </div>
+                        </button>
                     </div>
 
                     <NavMenu isOpen={open} />
