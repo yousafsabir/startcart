@@ -15,7 +15,7 @@ const CartCTA = (props) => {
         }
     };
     const remove = () => {
-        if (window.confirm("are you sure")) {
+        if (window.confirm("you wanna remove item from cart?")) {
             dispatch(removeItem(props.document.itemId));
         }
     };
