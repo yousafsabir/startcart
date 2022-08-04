@@ -20,7 +20,7 @@ const CartCTA = (props) => {
         }
     };
     return (
-        <div className="flex items-center gap-1">
+        <div className="flex items-stretch justify-center gap-1 sm:flex-col">
             <button
                 className="rounded bg-slate-300 px-3 py-1"
                 onClick={decrease}
