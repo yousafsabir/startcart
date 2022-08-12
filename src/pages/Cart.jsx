@@ -4,6 +4,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import Navbar from "../components/navbar/Navbar";
 import CartCTA from "../components/CartCTA";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Cart = () => {
     const user = useSelector((state) => state.auth.current);
@@ -27,7 +28,14 @@ const Cart = () => {
             <Navbar />
             <div className="min-h-[calc(100vh-70px)] w-full">
                 <div className="mx-auto my-6 max-w-7xl px-4 pt-9">
-                    <h2 className="mb-3 text-3xl font-semibold">Cart</h2>
+                    <div className="flex items-center justify-between">
+                        <h2 className="mb-3 text-3xl font-semibold">Cart</h2>
+                        <div className="rounded border border-red-300 bg-red-200 p-1 px-2 text-red-900">
+                            <AiOutlineInfoCircle className="mr-1 mb-1 inline-block text-2xl" />
+                            You can't place order right now but we'll get to
+                            that soon
+                        </div>
+                    </div>
                     <div className="mx-auto max-w-3xl space-y-3">
                         {data?.map((doc) => {
                             return (
