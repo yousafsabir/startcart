@@ -158,7 +158,7 @@ export const removeItem = createAsyncThunk(
                 ...user,
                 cartQty: user.cartQty - 1,
             });
-            thunkApi.dispatch(incCartQty());
+            thunkApi.dispatch(decCartQty());
             console.log("🗑 doc removed");
         } catch (error) {
             console.log(
