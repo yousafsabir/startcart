@@ -57,8 +57,10 @@ const About = () => {
                 </p>
                 <p className="text-center text-xl text-gray-700">
                     Made by{" "}
-                    <span className="text-sky-500">Muhammad Yousaf</span>
+                    <span className="text-sky-500">Muhammad Yousaf</span>{" "}
+		    and{" "}<span className="text-sky-500">Talha</span>
                 </p>
+		{/*
                 <div className="flex items-center gap-2">
                     <span className="text-xl text-gray-700">catch me at:</span>
                     <a href="https://github.com/yousafsabir/" target="_blank">
@@ -73,7 +75,7 @@ const About = () => {
                     >
                         <BsInstagram className=" text-[22px] text-gray-500 transition duration-300 hover:text-fuchsia-500" />
                     </a>
-                </div>
+                </div>*/}
             </div>
         </div>
     );
