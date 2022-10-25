@@ -11,6 +11,7 @@ import {
     BsGithub,
     BsInstagram,
     BsTwitter,
+    BsLinkedin,
 } from "react-icons/bs";
 
 const About = () => {
@@ -61,6 +62,9 @@ const About = () => {
                 </p>
                 <div className="flex items-center gap-2">
                     <span className="text-xl text-gray-700">catch me at:</span>
+		    <a href="https://linkedin.com/in/yousafsabir/" target="_blank">
+                        <BsLinkedin className=" text-[22px] text-gray-500 transition duration-300 hover:text-blue-900" />
+                    </a>
                     <a href="https://github.com/yousafsabir/" target="_blank">
                         <BsGithub className=" text-[22px] text-gray-500 transition duration-300 hover:text-gray-800" />
                     </a>
