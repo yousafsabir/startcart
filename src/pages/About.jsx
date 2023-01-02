@@ -36,7 +36,7 @@ const About = () => {
                     </h2>
                 </div>
                 <p className="text-center text-xl text-gray-700">
-                    A dummy online store made with:
+                    An Ecommerce store made with:
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                     <img src={ReactLogo} alt="react" className="w-[104px]" />
